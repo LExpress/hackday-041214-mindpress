@@ -14,93 +14,102 @@
     </div>
   </header>
 
-  <?php if ($sf_request->isMethod('post')): ?>
+  <?php if ($sf_request->isMethod('post') && !empty($data)): ?>
 
   <main class="main" role="main">
 
     <div class="information">
 
       <div class="information-left bloc-border">
-        <h3>Nom ville</h3>
+        <h3><?php echo $data['nom_commune'] ?></h3>
         <p>
-          La ville "<?php echo $data['nom_commune'] ?>" a une superficie de "<?php echo $data['superficie'] ?>" km2 et une population de "<?php echo $data['population']*1000 ?>"
+          La ville <?php echo $data['nom_commune'] ?> a une superficie de <?php echo $data['superficie'] ?> km2 et une population de <?php echo $data['population']*1000 ?> habitants.
         </p>
       </div>
 
       <div class="information-right bloc-border">
 
-<?php if (isset($data['InseeData'][0])): ?>
-<div id="inseee">
-  <p><?php echo $data['InseeData'][0]['access_proxi'] ?></p>
-  <p><?php echo $data['InseeData'][0]['access_inter'] ?></p>
-  <p><?php echo $data['InseeData'][0]['licence_sport'] ?></p>
-  <p><?php echo $data['InseeData'][0]['emploi'] ?></p>
-  <p><?php echo $data['InseeData'][0]['salaire'] ?></p>
-  <p><?php echo $data['InseeData'][0]['espace_nature'] ?></p>
-  <p><?php echo $data['InseeData'][0]['dist_travail'] ?></p>
-  <p><?php echo $data['InseeData'][0]['access_doctor'] ?></p>
-  <p><?php echo $data['InseeData'][0]['access_care'] ?></p>
-</div>
-<?php endif; ?>
+      <script type="text/javascript">
+      L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
 
-<div id='map' style="height: 600px; width: 600px">tes</div>
+        $( document ).ready(function() {
+          $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
+            console.log(data.records[0].fields)
 
+            var geojson = [
+             {
+               "type": "Feature",
+               "geometry": data.records[0].fields.geo_shape,
+               "properties": {
+                 "title": "<?php echo $data['nom_commune'] ?>",
+                 "marker-color": "#fc4353 ",
+                 "marker-size": "large",
+                 "marker-symbol": "monument"
+               }
+             },
+            ];
 
-<script type="text/javascript">
-L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
+            L.mapbox.map('map', 'hharrari.kd7a191c')
+             .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 13)
+             .featureLayer.setGeoJSON(geojson);
+          })
+        });
 
-  $( document ).ready(function() {
-    $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
-      console.log(data.records[0].fields)
+      </script>
 
-      var geojson = [
-       {
-         "type": "Feature",
-         "geometry": data.records[0].fields.geo_shape,
-         "properties": {
-           "title": "Mapbox DC",
-           "description": "1714 14th St NW, Washington DC",
-           "marker-color": "#fc4353 ",
-           "marker-size": "large",
-           "marker-symbol": "monument"
-         }
-       },
-      ];
-
-      L.mapbox.map('map', 'hharrari.kd7a191c')
-       .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 13)
-       .featureLayer.setGeoJSON(geojson);
-    })
-  });
-
-</script>
-
-        <h3>Evaluation</h3>
+        <h3>Évaluation</h3>
         <div class="note-final">
-          <strong>4</strong>
+          <strong><?php echo $data['stars']['all'] ?></strong>
           <span>Moyenne</span>
         </div>
         <ul class="note-details">
-          <li>Loisirs<span class="review review-0">0</span></li>
-          <li>Economie<span class="review review-1">1</span></li>
-          <li>Santé<span class="review review-2">2</span></li>
-          <li>Nature<span class="review review-3">3</span></li>
-          <li>Pratique<span class="review review-4">4</span></li>
+          <li>Pratique<span class="review review-<?php echo $data['stars']['pratique'] ?>"><?php echo $data['stars']['pratique'] ?></span></li>
+          <li>Loisirs<span class="review review-<?php echo $data['stars']['loisirs'] ?>"><?php echo $data['stars']['loisirs'] ?></span></li>
+          <li>Nature<span class="review review-<?php echo $data['stars']['nature'] ?>"><?php echo $data['stars']['nature'] ?></span></li>
+          <li>Économie<span class="review review-<?php echo $data['stars']['economie'] ?>"><?php echo $data['stars']['economie'] ?></span></li>
+          <li>Santé<span class="review review-<?php echo $data['stars']['sante'] ?>"><?php echo $data['stars']['sante'] ?></span></li>
         </ul>
       </div>
 
     </div>
 
-    <div class="">
-    </div>
+
+      <div class="container-block">
+        <div class="block-small block-left">
+          <img src="images/graph-1.jpg">
+        </div>
+
+        <div id="map" class="block-medium block-right">
+          block-medium
+        </div>
+      </div>
+
+      <div class="container-block">
+        <div id="charts" class="block-medium block-left">
+          block-medium
+        </div>
+
+        <div class="block-small block-right">
+        block-small
+        </div>
+
+      </div>
 
   </main>
 
 <?php endif; ?>
 
-  <footer class="footer">
-    <p>by Mindpress</p>
-  </footer>
+    <footer class="footer">
+      <p>MindPress</p>
+      <ul>
+        <li>Elodie Montel</li>
+        <li>Jérémy Benoist</li>
+        <li>Mohammed Zemri</li>
+        <li>Adrien Sénécat</li>
+        <li>Adeline Alart</li>
+        <li>Hakim Harrari</li>
+      </ul>
+    </footer>
 
 <script type="text/javascript">
    function repoFormatResult(repo) {
@@ -141,4 +150,73 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6x
 //     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
 //     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 // });
+//
+$(function () {
+
+    $('#charts').highcharts({
+
+        chart: {
+            polar: true,
+            type: 'line'
+        },
+
+        title: {
+            text: 'Avantage de la ville',
+            x: -80
+        },
+
+        pane: {
+            size: '80%'
+        },
+
+        xAxis: {
+            categories: [
+            'Services de base',
+            'Services spécialisés',
+            'Activités sportives',
+            'Emploi',
+            'Salaire',
+            'Nature',
+            'Transports',
+            'Nombre de médecins généralistes',
+            'Accès aux soins',],
+            tickmarkPlacement: 'on',
+            lineWidth: 0
+        },
+
+        yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+        },
+
+        tooltip: {
+            shared: true,
+            pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+        },
+
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 70,
+            layout: 'vertical'
+        },
+
+        series: [{
+            name: 'Moyenne',
+            data: [
+              <?php echo $data['stars']['access_proxi'] ?>,
+              <?php echo $data['stars']['access_inter'] ?>,
+              <?php echo $data['stars']['licence_sport'] ?>,
+              <?php echo $data['stars']['emploi'] ?>,
+              <?php echo $data['stars']['salaire'] ?>,
+              <?php echo $data['stars']['espace_nature'] ?>,
+              <?php echo $data['stars']['dist_travail'] ?>,
+              <?php echo $data['stars']['access_doctor'] ?>,
+              <?php echo $data['stars']['access_care'] ?>,],
+            pointPlacement: 'on'
+        }]
+
+    });
+});
 </script>

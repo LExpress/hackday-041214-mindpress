@@ -274,35 +274,24 @@ class searchActions extends sfActions
          $this->data['stars']['access_care'] = 5;
        }
 
-       //
+       // Pratique
+       $this->data['stars']['pratique'] = round(($this->data['stars']['access_proxi'] + $this->data['stars']['access_inter'] + $this->data['stars']['dist_travail'])/3) ;
 
-        if ($insee['access_care'] > 30000)
-       {
-         $this->data['stars']['access_care'] = 0;
-       }
-       if ($insee['access_care'] >= 24000 && $insee['access_care'] <= 30000)
-       {
-         $this->data['stars']['access_care'] = 1;
-       }
-        if ($insee['access_care'] >= 18000 && $insee['access_care'] <= 24000)
-       {
-         $this->data['stars']['access_care'] = 2;
-       }
-        if ($insee['access_care'] >= 12000 && $insee['access_care'] <= 18000)
-       {
-         $this->data['stars']['access_care'] = 3;
-       }
-        if ($insee['access_care'] >= 6000 && $insee['access_care'] <= 12000)
-       {
-         $this->data['stars']['access_care'] = 4;
-       }
-       if ($insee['access_care'] <= 6000 )
-       {
-         $this->data['stars']['access_care'] = 5;
-       }
+       // Loisirs
+       $this->data['stars']['loisirs'] = round($this->data['stars']['licence_sport']);
+
+       // Nature
+       $this->data['stars']['nature'] = round($this->data['stars']['espace_nature']);
+
+       // Econommie
+       $this->data['stars']['economie'] = round(($this->data['stars']['emploi'] + $this->data['stars']['salaire'])/ 2);
+
+        // sante
+       $this->data['stars']['sante'] = round(($this->data['stars']['access_doctor'] + $this->data['stars']['access_care'])/ 2);
+
+       $this->data['stars']['all'] = round(($this->data['stars']['pratique'] + $this->data['stars']['loisirs'] + $this->data['stars']['nature'] + $this->data['stars']['economie'] + $this->data['stars']['sante'])/ 5);
+
         }
-
-        var_dump($this->data);
       }
     }
   }

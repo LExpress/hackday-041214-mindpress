@@ -199,6 +199,10 @@ body{
 .block-medium{
   margin-bottom: 30px;
 }
+.block > img{
+  max-width: 100%;
+  border:1px solid #E1E1E1;
+}
 @media (min-width: 48em) {
   .block-small {
     width: 28%;

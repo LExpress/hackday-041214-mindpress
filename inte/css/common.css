@@ -62,6 +62,7 @@ body{
 }
 .main-form-input{
   width:78%;
+  color:#CCC;
 }
 @media (min-width: 48em) {
   .main-form-input{
@@ -215,7 +216,9 @@ body{
     float:right;
   }
 }
-
+#map{
+  height: 300px;
+}
 
 /* bloc general */
 .bloc-border{

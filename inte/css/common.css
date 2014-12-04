@@ -194,15 +194,25 @@ body{
 .container-block{
   clear: both;
 }
+.block-small,
+.block-medium{
+  margin-bottom: 30px;
+}
 @media (min-width: 48em) {
   .block-small {
     width: 28%;
+  }
+  .block-left {
+    float:left;
   }
 }
 
 @media (min-width: 48em) {
   .block-medium {
     width: 68%;
+  }
+  .block-right {
+    float:right;
   }
 }
 
@@ -217,4 +227,22 @@ body{
 /* footer */
 .footer{
   clear: both;
+}
+.footer p{
+  margin:0;
+  color:#FF9900;
+  text-align: center;
+}
+.footer ul{
+  margin:0;
+  padding: 10px 5px;
+  color: #FFF;
+  background:#FF9900;
+  text-align: center;
+}
+.footer ul li{
+  display: inline-block;
+}
+.footer ul li:after{
+  content: " -";
 }

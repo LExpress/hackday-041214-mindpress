@@ -7,18 +7,25 @@ body{
 /* header */
 .header{
   margin-bottom: 30px;
-  padding-top: 130px;
   padding-bottom: 10px;
+  padding-top: 20px;
   text-align: center;
   color:#FFF;
   background:url(../images/bg-header.jpg) no-repeat center 0;
   background-size: cover;
+}
+.header-logo{
+  margin-bottom: 20px;
+  padding:15px 0 5px;
+  width: 100%;
+  background-color:rgba(0, 0, 0, 0.5);
 }
 .header-title{
   width: 60%;
   margin:0 auto;
   text-transform: uppercase;
   font:2.5em/1 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
 }
 @media (min-width: 48em) {
   .header-title{
@@ -29,10 +36,12 @@ body{
   width: 60%;
   margin:0 auto 30px;
   font: 1.250em/1.5 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
 }
 .intro{
   margin-bottom: 30px;
   font:0.75em/1 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
 }
 /* main */
 .main{
@@ -155,7 +164,10 @@ body{
   }
 }
 .note-details li{
+  padding-left: 25px;
   line-height:1.9em;
+  font-weight: bold;
+  background:url(../images/forme-plus.png) no-repeat 0 center;
 }
 .note-details .review{
   display: inline-block;
@@ -179,6 +191,21 @@ body{
 .note-details .review-0{
   background-position: 0 -152px;
 }
+.container-block{
+  clear: both;
+}
+@media (min-width: 48em) {
+  .block-small {
+    width: 28%;
+  }
+}
+
+@media (min-width: 48em) {
+  .block-medium {
+    width: 68%;
+  }
+}
+
 
 /* bloc general */
 .bloc-border{

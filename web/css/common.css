@@ -172,7 +172,7 @@ body{
 }
 .note-details .review{
   display: inline-block;
-  width:181px;
+  width:150px;
   float:right;
   text-indent: -9999px;
   background:url(../images/etoiles-360.png) no-repeat 0 0;

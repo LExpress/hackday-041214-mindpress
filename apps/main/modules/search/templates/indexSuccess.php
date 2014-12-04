@@ -76,8 +76,8 @@
 
 
       <div class="container-block">
-        <div class="block-small block block-left">
-          <img src="images/graph-1.jpg">
+        <div id="pie" class="block-small block block-left">
+
         </div>
 
         <div id="map" class="block block-medium block-right">
@@ -218,6 +218,48 @@ $(function () {
             pointPlacement: 'on'
         }]
 
+    });
+
+$('#pie').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Comparatif entre les éléments pratiques'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Comparatif',
+            data: [
+                ['Services de base',   <?php echo $data['stars']['access_proxi'] ?>],
+                ['Services spécialisés',       <?php echo $data['stars']['access_inter'] ?>],
+                {
+                    name: 'Chrome',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['Transports',    <?php echo $data['stars']['dist_travail'] ?>],
+            ]
+        }]
     });
 });
 </script>

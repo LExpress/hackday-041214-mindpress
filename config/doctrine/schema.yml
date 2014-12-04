@@ -1,0 +1,14 @@
+PostalCode:
+  columns:
+    code_insee:           { type: string(255) }
+    nom_commune:          { type: string(255) }
+    code_postal:          { type: string(255) }
+    libelle_acheminement: { type: string(255) }
+  indexes:
+    nom_commune:
+      fields:
+        nom_commune: []
+      type:           fulltext
+    code_postal:
+      fields:
+        code_postal: []

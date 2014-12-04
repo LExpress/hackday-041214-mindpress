@@ -1,0 +1,11 @@
+{
+    "config": {
+        "vendor-dir": "lib/vendor"
+    },
+    "require": {
+        "composer/installers": "~1.0",
+        "lexpress/symfony1": "1.5.*",
+        "lexpress/doctrine1": "*"
+    },
+    "minimum-stability": "dev"
+}

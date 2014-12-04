@@ -1,0 +1,220 @@
+﻿/* base */
+body{
+  font: 100%/1.5 "Trebuchet MS", "Arial", sans-serif;
+  -webkit-text-size-adjust: 100%;
+  color: #1e1e1e;
+}
+/* header */
+.header{
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  text-align: center;
+  color:#FFF;
+  background:url(../images/bg-header.jpg) no-repeat center 0;
+  background-size: cover;
+}
+.header-logo{
+  margin-bottom: 20px;
+  padding:15px 0 5px;
+  width: 100%;
+  background-color:rgba(0, 0, 0, 0.5);
+}
+.header-title{
+  width: 60%;
+  margin:0 auto;
+  text-transform: uppercase;
+  font:2.5em/1 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
+}
+@media (min-width: 48em) {
+  .header-title{
+    font-size:3.750em;
+  }
+}
+.header-headline{
+  width: 60%;
+  margin:0 auto 30px;
+  font: 1.250em/1.5 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
+}
+.intro{
+  margin-bottom: 30px;
+  font:0.75em/1 "Trebuchet MS", "Arial";
+  text-shadow: 2px 2px 8px #000;
+}
+/* main */
+.main{
+  width:90%;
+  margin:0 5%;
+}
+@media (min-width: 62.25em) {
+  .main{
+    max-width:62.25em;
+    margin:0 auto;
+  }
+}
+
+/* form */
+.main-form{
+  margin-bottom: 30px;
+  text-align: center;
+}
+.main-form-input{
+  width:78%;
+}
+@media (min-width: 48em) {
+  .main-form-input{
+    width: 30%;
+  }
+}
+
+.input{
+  box-sizing: border-box;
+  padding: 0.5em 1em;
+  border:none;
+}
+.button{
+  padding: 0.5em 1em;
+  opacity: 0.7;
+  border:none;
+  background:#000;
+  opacity: 0.7;
+}
+.button:hover{
+  opacity: 1;
+}
+
+/* information */
+.information div{
+  box-sizing:border-box;
+  margin-bottom: 30px;
+  color: #FFF;
+}
+.information h3{
+  margin-top: 0;
+  font:2em;
+  color:#575757;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+.information strong{
+  display:block;
+  font-weight: bold;
+}
+@media (min-width: 48em) {
+  .information-left{
+    float:left;
+    width: 28%;
+  }
+}
+@media (min-width: 48em) {
+  .information-right{
+    float:right;
+    width: 68%;
+  }
+}
+.information:after{
+  content:"";
+  clear: both;
+}
+/* notation */
+.note-final span{
+  display: block;
+  color:#D80000;
+  font-size: 1.25em;
+  text-align: center;
+}
+.note-final strong{
+  display: block;
+  padding:30px 0;
+  text-align: center;
+  color:#D80000;
+  font-size: 3.750em;
+  background:url(../images/grosse-etoile-360.png) no-repeat center 0;
+}
+
+@media (min-width: 37em) {
+  .note-details {
+    display:inline-block;
+  }
+}
+@media (min-width: 37em) {
+  .note-final {
+    display:inline-block;
+    width: 40%;
+    vertical-align: top;
+  }
+}
+@media (min-width: 48em) {
+  .note-final {
+    width: 30%;
+  }
+}
+
+.note-details{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 37em) {
+  .note-details {
+    display: inline-block;
+    width: 59%;
+  }
+}
+.note-details li{
+  padding-left: 25px;
+  line-height:1.9em;
+  font-weight: bold;
+  background:url(../images/forme-plus.png) no-repeat 0 center;
+}
+.note-details .review{
+  display: inline-block;
+  width:181px;
+  float:right;
+  text-indent: -9999px;
+  background:url(../images/etoiles-360.png) no-repeat 0 0;
+}
+.note-details .review-4{
+  background-position: 0 -30px;
+}
+.note-details .review-3{
+  background-position: 0 -58px;
+}
+.note-details .review-2{
+  background-position: 0 -88px;
+}
+.note-details .review-1{
+  background-position: 0 -120px;
+}
+.note-details .review-0{
+  background-position: 0 -152px;
+}
+.container-block{
+  clear: both;
+}
+@media (min-width: 48em) {
+  .block-small {
+    width: 28%;
+  }
+}
+
+@media (min-width: 48em) {
+  .block-medium {
+    width: 68%;
+  }
+}
+
+
+/* bloc general */
+.bloc-border{
+  padding: 1em;
+  border: 1px solid #E1E1E1;
+  background: #CCC;
+}
+
+/* footer */
+.footer{
+  clear: both;
+}

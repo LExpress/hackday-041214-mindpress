@@ -43,18 +43,42 @@ class postalCodeTask extends sfBaseTask
 
     foreach ($arrayCsv as $index => $data)
     {
-      $codes[] = array(
-        'code_insee' => trim($data[0]),
-        'code_postal' => trim($data[1]),
-        'nom_commune' => ucwords(strtolower(trim($data[2]))),
-        'departement' => ucwords(strtolower(trim($data[3]))),
-        'region' => ucwords(strtolower(trim($data[4]))),
-        'superficie' => $data[7],
-        'population' => $data[8],
-        'geo_point_2d' => $data[9],
-        'geo_shape' => $data[10],
-        'code_departement' => $data[15]
-      );
+      // some postal code are multiple on one line
+      if (strpos(trim($data[1]), '/'))
+      {
+        $badCodes = explode('/', trim($data[1]));
+
+        foreach ($badCodes as $badCode)
+        {
+          $codes[] = array(
+            'code_insee' => trim($data[0]),
+            'code_postal' => $badCode,
+            'nom_commune' => ucwords(strtolower(trim($data[2]))),
+            'departement' => ucwords(strtolower(trim($data[3]))),
+            'region' => ucwords(strtolower(trim($data[4]))),
+            'superficie' => $data[7],
+            'population' => $data[8],
+            'geo_point_2d' => $data[9],
+            'geo_shape' => $data[10],
+            'code_departement' => $data[15]
+          );
+        }
+      }
+      else
+      {
+        $codes[] = array(
+          'code_insee' => trim($data[0]),
+          'code_postal' => trim($data[1]),
+          'nom_commune' => ucwords(strtolower(trim($data[2]))),
+          'departement' => ucwords(strtolower(trim($data[3]))),
+          'region' => ucwords(strtolower(trim($data[4]))),
+          'superficie' => $data[7],
+          'population' => $data[8],
+          'geo_point_2d' => $data[9],
+          'geo_shape' => $data[10],
+          'code_departement' => $data[15]
+        );
+      }
 
       $this->showStatus($index++, $total);
 

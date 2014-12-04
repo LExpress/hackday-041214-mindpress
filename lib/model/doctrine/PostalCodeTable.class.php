@@ -21,6 +21,7 @@ class PostalCodeTable extends Doctrine_Table
   {
     return $this->createQuery('c')
       ->leftJoin('c.InseeData i')
+      ->leftJoin('c.SecuriteData s')
       ->where('c.code_postal = ?', $codePostal)
       ->fetchOne(array(), Doctrine_Core::HYDRATE_ARRAY);
   }

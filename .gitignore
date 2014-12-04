@@ -10,3 +10,5 @@ lib/model/doctrine/*Plugin/base/Base*
 log/*
 
 lib/vendor/
+data/mindpress.key
+

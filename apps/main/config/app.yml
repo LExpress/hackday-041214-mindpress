@@ -6,3 +6,4 @@
 all:
   data:
     postal_code: 'https://www.data.gouv.fr/s/resources/base-officielle-des-codes-postaux/20141106-120608/code_postaux_v201410.csv'
+    postal_code_2: 'http://public.opendatasoft.com/explore/dataset/correspondance-code-insee-code-postal/download/?format=csv&timezone=Europe/Berlin'

@@ -1,9 +1,15 @@
 PostalCode:
   columns:
-    code_insee:           { type: string(255) }
-    nom_commune:          { type: string(255) }
-    code_postal:          { type: string(255) }
-    libelle_acheminement: { type: string(255) }
+    code_insee:       { type: string(255) }
+    code_postal:      { type: string(255) }
+    nom_commune:      { type: string(255) }
+    departement:      { type: string(255) }
+    region:           { type: string(255) }
+    superficie:       { type: string(255) }
+    population:       { type: string(255) }
+    geo_point_2d:     { type: string(255) }
+    geo_shape:        { type: string(1000) }
+    code_departement: { type: string(255) }
   indexes:
     nom_commune:
       fields:
@@ -12,3 +18,35 @@ PostalCode:
     code_postal:
       fields:
         code_postal: []
+
+InseeData:
+  columns:
+    code_insee:     { type: string(255) }
+    access_proxi:   { type: string(255) }
+    access_inter:   { type: string(255) }
+    licence_sport:  { type: string(255) }
+    emploi:         { type: string(255) }
+    salaire:        { type: string(255) }
+    espace_nature:  { type: string(255) }
+    dist_travail:   { type: string(255) }
+    access_doctor:  { type: string(255) }
+    access_care:    { type: string(255) }
+  relations:
+    PostalCode:     { onDelete: CASCADE, local: code_insee, foreign: code_insee }
+
+SecuriteData:
+  columns:
+    code_insee:                               { type: string(255) }
+    commune:                                  { type: string(255) }
+    population:                               { type: string(255) }
+    departement:                              { type: string(255) }
+    zone:                                     { type: string(255) }
+    compagnies_de_gendarmerie_departementale: { type: string(255) }
+    classement_violences_personnes:           { type: string(255) }
+    classement_atteintes_biens:               { type: string(255) }
+    classement_violences_physiques:           { type: string(255) }
+    classement_cambriolages:                  { type: string(255) }
+    classement_vols_voitures:                 { type: string(255) }
+    coordonnees_geographiques:                { type: string(255) }
+  relations:
+    PostalCode:     { onDelete: CASCADE, local: code_insee, foreign: code_insee }

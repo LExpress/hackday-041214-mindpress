@@ -25,7 +25,8 @@ class searchActions extends sfActions
 
       if ($this->form->isValid())
       {
-        echo 'chouette';
+        $this->data = Doctrine_Core::getTable('PostalCode')->retrieveData($this->form->getValue('q'));
+        var_dump($this->data);
       }
     }
   }

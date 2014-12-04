@@ -1,7 +1,5 @@
 cache/*
 
-data/sql/*
-
 lib/filter/doctrine/base/Base*
 lib/filter/doctrine/*Plugin/base/Base*
 lib/form/doctrine/base/Base*

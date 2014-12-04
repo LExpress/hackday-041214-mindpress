@@ -15,9 +15,11 @@
     </div>
   </header>
 
-  <?php if ($sf_request->isMethod('post') && !empty($data)): ?>
+
 
   <main class="main" role="main">
+
+    <?php if ($sf_request->isMethod('post') && sfOutputEscaper::unescape($data)): ?>
 
     <div class="information">
 
@@ -29,34 +31,6 @@
       </div>
 
       <div class="information-right bloc-border">
-
-      <script type="text/javascript">
-      L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
-
-        $( document ).ready(function() {
-          $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
-            console.log(data.records[0].fields)
-
-            var geojson = [
-             {
-               "type": "Feature",
-               "geometry": data.records[0].fields.geo_shape,
-               "properties": {
-                 "title": "<?php echo $data['nom_commune'] ?>",
-                 "marker-color": "#fc4353 ",
-                 "marker-size": "large",
-                 "marker-symbol": "monument"
-               }
-             },
-            ];
-
-            L.mapbox.map('map', 'hharrari.kd7a191c')
-             .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 13)
-             .featureLayer.setGeoJSON(geojson);
-          })
-        });
-
-      </script>
 
         <h3>Évaluation</h3>
         <div class="note-final">
@@ -95,10 +69,18 @@
         </div>
 
       </div>
+<?php else: ?>
 
-  </main>
+    <div class="concept">
+     <p>Choisir un nouvel appartement, c'est difficile.  </p>
+     <p>Vous n'avez sûrement pas pensé à tout. </p>
+     <p><strong>Check your place a pensé à vous </strong>: santé, économie, vie pratique, loisirs... </p>
+     <p>Voici toutes les informations importantes pour vous aider à faire votre choix.  </p>
+     <p>Pour commencer, entrez simplement le code postal de la commune désirée.</p>
+   </div>
 
 <?php endif; ?>
+  </main>
 
     <footer class="footer">
       <p>MindPress</p>
@@ -113,22 +95,22 @@
     </footer>
 
 <script type="text/javascript">
-   function repoFormatResult(repo) {
-      var markup = '<div class="row-fluid">' +
-         '<div class="span10">' +
-            '<div class="row-fluid">' +
-               '<div class="span6">' + repo.nom_commune + '</div>' +
-               '<div class="span3"><i class="fa fa-code-fork"></i> ' + repo.code_postal + '</div>' +
-               '<div class="span3"><i class="fa fa-star"></i> ' + repo.departement + '</div>' +
-            '</div></div></div>';
+   // function repoFormatResult(repo) {
+   //    var markup = '<div class="row-fluid">' +
+   //       '<div class="span10">' +
+   //          '<div class="row-fluid">' +
+   //             '<div class="span6">' + repo.nom_commune + '</div>' +
+   //             '<div class="span3"><i class="fa fa-code-fork"></i> ' + repo.code_postal + '</div>' +
+   //             '<div class="span3"><i class="fa fa-star"></i> ' + repo.departement + '</div>' +
+   //          '</div></div></div>';
 
-      return markup;
-   }
+   //    return markup;
+   // }
 
-   function repoFormatSelection(repo) {
-    console.log(repo)
-      return repo.code_insee;
-   }
+   // function repoFormatSelection(repo) {
+   //  console.log(repo)
+   //    return repo.code_insee;
+   // }
 
 //  $(".main-form-input").select2({
 //     placeholder: "Code postal",
@@ -153,6 +135,31 @@
 // });
 
 $(function () {
+
+      L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
+
+        $( document ).ready(function() {
+          $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
+            console.log(data.records[0].fields)
+
+            var geojson = [
+             {
+               "type": "Feature",
+               "geometry": data.records[0].fields.geo_shape,
+               "properties": {
+                 "title": "<?php echo $data['nom_commune'] ?>",
+                 "marker-color": "#fc4353 ",
+                 "marker-size": "large",
+                 "marker-symbol": "monument"
+               }
+             },
+            ];
+
+            L.mapbox.map('map', 'hharrari.kd7a191c')
+             .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 10)
+             .featureLayer.setGeoJSON(geojson);
+          })
+        });
 
     $('#charts').highcharts({
 
@@ -220,7 +227,7 @@ $(function () {
 
     });
 
-$('#pie').highcharts({
+    $('#pie').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 0,//null,

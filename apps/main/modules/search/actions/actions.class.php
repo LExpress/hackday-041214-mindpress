@@ -294,6 +294,7 @@ class searchActions extends sfActions
         }
       }
     }
+
   }
 
   public function executeSearch(sfWebRequest $request)

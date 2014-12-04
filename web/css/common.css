@@ -251,3 +251,8 @@ body{
 .footer ul li:after{
   content: " -";
 }
+
+.block > img{
+  max-width: 100%;
+  border:1px solid #E1E1E1;
+}

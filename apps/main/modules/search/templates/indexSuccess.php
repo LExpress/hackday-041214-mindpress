@@ -1,5 +1,6 @@
 
   <header class="header">
+    <div class="header-logo"><img src="images/logo-mindheader.png" alt="MindPress" width="150" /></div>
     <h1 class="header-title">Check your place </h1>
     <h2 class="header-headline">Vous n'y avez sûrement pas pensé.</h2>
     <p class="intro">Entrez ici le code postal de la commune pour trouver les informations clés.</p>
@@ -75,22 +76,22 @@
 
 
       <div class="container-block">
-        <div class="block-small block-left">
+        <div class="block-small block block-left">
           <img src="images/graph-1.jpg">
         </div>
 
-        <div id="map" class="block-medium block-right">
-          block-medium
+        <div id="map" class="block block-medium block-right">
+
         </div>
       </div>
 
       <div class="container-block">
-        <div id="charts" class="block-medium block-left">
-          block-medium
+        <div id="charts" class="block block-medium block-left">
+
         </div>
 
-        <div class="block-small block-right">
-        block-small
+        <div class="block-small block block-right">
+          <img src="images/graph-3.jpg">
         </div>
 
       </div>
@@ -150,7 +151,7 @@
 //     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
 //     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 // });
-//
+
 $(function () {
 
     $('#charts').highcharts({

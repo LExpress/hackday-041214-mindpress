@@ -1,25 +1,22 @@
 
   <header class="header">
-    <div class="header-logo"><img src="images/logo-mindheader.png" alt="MindPress" width="150" /></div>
-    <h1 class="header-title">Check your place </h1>
+    <div class="header-logo"><img src="/images/logo-mindheader.png" alt="MindPress" width="150" /></div>
+    <h1 class="header-title"><a href="<?php echo url_for('@homepage') ?>">Check your place</a></h1>
     <h2 class="header-headline">Vous n'y avez sûrement pas pensé.</h2>
     <p class="intro">Entrez ici le code postal de la commune pour trouver les informations clés.</p>
     <div class="main-form">
-      <?php echo form_tag('@homepage') ?>
+      <?php echo form_tag('@homepage', array('method' => 'GET')) ?>
         <fieldset>
           <?php echo $form['q']->render(array('class' => 'main-form-input input', 'placeholder' => 'Code postal')) ?>
           <input type="submit" value="Ok" class="main-form-submit button"/>
-          <?php echo $form->renderHiddenFields() ?>
         </fieldset>
       </form>
     </div>
   </header>
 
-
-
   <main class="main" role="main">
 
-    <?php if ($sf_request->isMethod('post') && sfOutputEscaper::unescape($data)): ?>
+    <?php if ($sf_request->getParameter('q') && sfOutputEscaper::unescape($data)): ?>
 
     <div class="information">
 
@@ -34,15 +31,15 @@
 
         <h3>Évaluation</h3>
         <div class="note-final">
-          <strong><?php echo $data['stars']['all'] ?></strong>
+          <strong title="<?php echo $data['stars']['all_full'] ?>"><?php echo $data['stars']['all'] ?></strong>
           <span>Moyenne</span>
         </div>
         <ul class="note-details">
-          <li>Pratique<span class="review review-<?php echo $data['stars']['pratique'] ?>"><?php echo $data['stars']['pratique'] ?></span></li>
-          <li>Loisirs<span class="review review-<?php echo $data['stars']['loisirs'] ?>"><?php echo $data['stars']['loisirs'] ?></span></li>
-          <li>Nature<span class="review review-<?php echo $data['stars']['nature'] ?>"><?php echo $data['stars']['nature'] ?></span></li>
-          <li>Économie<span class="review review-<?php echo $data['stars']['economie'] ?>"><?php echo $data['stars']['economie'] ?></span></li>
-          <li>Santé<span class="review review-<?php echo $data['stars']['sante'] ?>"><?php echo $data['stars']['sante'] ?></span></li>
+          <li>Pratique<span class="review review-<?php echo $data['stars']['pratique'] ?>" title="<?php echo $data['stars']['pratique_full'] ?>"><?php echo $data['stars']['pratique'] ?></span></li>
+          <li>Loisirs<span class="review review-<?php echo $data['stars']['loisirs'] ?>" title="<?php echo $data['stars']['loisirs_full'] ?>"><?php echo $data['stars']['loisirs'] ?></span></li>
+          <li>Nature<span class="review review-<?php echo $data['stars']['nature'] ?>" title="<?php echo $data['stars']['nature_full'] ?>"><?php echo $data['stars']['nature'] ?></span></li>
+          <li>Économie<span class="review review-<?php echo $data['stars']['economie'] ?>" title="<?php echo $data['stars']['economie_full'] ?>"><?php echo $data['stars']['economie'] ?></span></li>
+          <li>Santé<span class="review review-<?php echo $data['stars']['sante'] ?>" title="<?php echo $data['stars']['sante_full'] ?>"><?php echo $data['stars']['sante'] ?></span></li>
         </ul>
       </div>
 
@@ -50,22 +47,15 @@
 
 
       <div class="container-block">
-        <div id="pie" class="block-small block block-left">
-
-        </div>
-
-        <div id="map" class="block block-medium block-right">
-
-        </div>
+        <div id="pie" class="block-small block block-left"></div>
+        <div id="map" class="block block-medium block-right"></div>
       </div>
 
       <div class="container-block">
-        <div id="charts" class="block block-medium block-left">
-
-        </div>
+        <div id="charts" class="block block-medium block-left"></div>
 
         <div class="block-small block block-right">
-          <img src="images/graph-3.jpg">
+          <img src="/images/graph-3.jpg">
         </div>
 
       </div>
@@ -134,49 +124,49 @@
 //     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 // });
 
+<?php if ($sf_request->getParameter('q') && sfOutputEscaper::unescape($data)): ?>
 $(function () {
 
-      L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
+  L.mapbox.accessToken = 'pk.eyJ1IjoiaGhhcnJhcmkiLCJhIjoiWFloSmpEVSJ9.L1zWxnT4sa6xKrC4ssycZQ';
 
-        $( document ).ready(function() {
-          $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
-            console.log(data.records[0].fields)
+  $( document ).ready(function() {
+    $.get('http://public.opendatasoft.com/api/records/1.0/search?dataset=correspondance-code-insee-code-postal&facet=insee_com&refine.insee_com=<?php echo $data['code_insee'] ?>', function (data) {
+      console.log(data.records[0].fields)
 
-            var geojson = [
-             {
-               "type": "Feature",
-               "geometry": data.records[0].fields.geo_shape,
-               "properties": {
-                 "title": "<?php echo $data['nom_commune'] ?>",
-                 "marker-color": "#fc4353 ",
-                 "marker-size": "large",
-                 "marker-symbol": "monument"
-               }
-             },
-            ];
+      var geojson = [
+       {
+         "type": "Feature",
+         "geometry": data.records[0].fields.geo_shape,
+         "properties": {
+           "title": "<?php echo $data['nom_commune'] ?>",
+           "marker-color": "#fc4353 ",
+           "marker-size": "large",
+           "marker-symbol": "monument"
+         }
+       },
+      ];
 
-            L.mapbox.map('map', 'hharrari.kd7a191c')
-             .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 10)
-             .featureLayer.setGeoJSON(geojson);
-          })
-        });
+      var map = L.mapbox.map('map', 'hharrari.kd7a191c', { scrollWheelZoom: false })
+        .setView([data.records[0].fields.geo_point_2d[0], data.records[0].fields.geo_point_2d[1]], 10)
+        .featureLayer.setGeoJSON(geojson);
+    })
+  });
 
     $('#charts').highcharts({
-
         chart: {
             polar: true,
             type: 'line'
         },
-
+        exporting: {
+          enabled: false
+        },
         title: {
             text: 'Avantage de la ville',
             x: -80
         },
-
         pane: {
             size: '80%'
         },
-
         xAxis: {
             categories: [
             'Services de base',
@@ -191,25 +181,22 @@ $(function () {
             tickmarkPlacement: 'on',
             lineWidth: 0
         },
-
         yAxis: {
             gridLineInterpolation: 'polygon',
             lineWidth: 0,
-            min: 0
+            min: 0,
+            max: 5
         },
-
         tooltip: {
             shared: true,
             pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
         },
-
         legend: {
             align: 'right',
             verticalAlign: 'top',
             y: 70,
             layout: 'vertical'
         },
-
         series: [{
             name: 'Moyenne',
             data: [
@@ -224,7 +211,6 @@ $(function () {
               <?php echo $data['stars']['access_care'] ?>,],
             pointPlacement: 'on'
         }]
-
     });
 
     $('#pie').highcharts({
@@ -232,6 +218,9 @@ $(function () {
             plotBackgroundColor: null,
             plotBorderWidth: 0,//null,
             plotShadow: false
+        },
+        exporting: {
+          enabled: false
         },
         title: {
             text: 'Comparatif entre les éléments pratiques'
@@ -258,15 +247,10 @@ $(function () {
             data: [
                 ['Services de base',   <?php echo $data['stars']['access_proxi'] ?>],
                 ['Services spécialisés',       <?php echo $data['stars']['access_inter'] ?>],
-                {
-                    name: 'Chrome',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
-                },
                 ['Transports',    <?php echo $data['stars']['dist_travail'] ?>],
             ]
         }]
     });
 });
+<?php endif; ?>
 </script>

@@ -12,6 +12,8 @@ class SearchForm extends BaseForm
 {
   public function configure()
   {
+    $this->disableCSRFProtection();
+
     $this->setWidgets(array(
       'q' => new sfWidgetFormInputText(),
     ));
@@ -20,7 +22,7 @@ class SearchForm extends BaseForm
       'q' => new sfValidatorDoctrineChoice(array('model' => 'PostalCode', 'column' => 'code_postal')),
     ));
 
-    $this->widgetSchema->setNameFormat('search[%s]');
+    $this->widgetSchema->setNameFormat('%s');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
   }

@@ -6,11 +6,11 @@ default:
     content-type: text/html
 
   metas:
-    title:        Mind press :: concept
-    #description:  symfony project
+    title:        Check your place
+    description:  Vous n'avez sûrement pas pensé à tout pour votre prochain logement !
     #keywords:     symfony, project
-    #language:     en
-    #robots:       index, follow
+    language:     fr
+    robots:       index, follow
     viewport: 'width=device-width,initial-scale=1'
 
   stylesheets:

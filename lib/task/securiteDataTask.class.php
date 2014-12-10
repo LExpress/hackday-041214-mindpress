@@ -95,7 +95,7 @@ class securiteDataTask extends sfBaseTask
 
       $this->showStatus($index++, $total);
 
-      if (count($codes) < 500)
+      if (count($codes) < 1000)
       {
         continue;
       }
